@@ -9,9 +9,10 @@ Feature: Login
       | <email> | <password> |
     And Click on Login button
     Then SignOut button displayed
+    And Browser closed
     Examples:
-      | email          | password |
-      | hann@gmail.com | 12345Hp$ |
+      | email            | password   |
+      | hann+7@gmail.com | Ka1234567$ |
 
   @invalidPassword
   Scenario Outline: Login with invalid data
@@ -22,7 +23,23 @@ Feature: Login
       | <email> | <password> |
     And Click on Login button
     Then Alert appeared
-    Then Login Failed with code 400
+    And Login Failed with code 400 appeared
+    And Browser closed
     Examples:
-      | email          | password |
-      | hann@gmail.com | 12345Hp  |
+      | email            | password |
+      | hann+7@gmail.com | 12345Hp  |
+
+  @invalidEmail
+  Scenario Outline: Login with invalid data
+    Given Navigate to Home Page
+    When Click on Login tab
+    And Enter a invalid email and an valid password
+      | email   | password   |
+      | <email> | <password> |
+    And Click on Login button
+    Then Alert appeared
+    And Login Failed with code 400 appeared
+    And Browser closed
+    Examples:
+      | email           | password   |
+      | hannp@gmail.com | Ka1234567$ |
